@@ -9,8 +9,8 @@ The objective of this project was to engineer an end-to-end SQL data pipeline to
 
 ---
 
-##  Database Architecture (3NF Normalization)
-The raw data was ingested, cleaned, and normalized into a 3rd Normal Form (3NF) relational schema to eliminate redundancy and optimize query performance. Indexes were applied to primary and foreign keys.
+## Database Architecture (Star Schema)
+The raw dataset was ingested, cleaned, and modeled into a highly efficient Star Schema designed for analytical processing (OLAP). This structure centers around a daily inventory fact table connected to multiple dimension tables, optimizing the performance of complex aggregations and BI dashboard queries. Indexes were applied to all primary and foreign keys.
 
 ```mermaid
 erDiagram
