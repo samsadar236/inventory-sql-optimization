@@ -14,33 +14,60 @@ The raw data was ingested, cleaned, and normalized into a 3rd Normal Form (3NF) 
 
 ```mermaid
 erDiagram
-    STORES ||--o{ INVENTORY_LOG : "has"
-    STORES {
-        string Store_ID PK
-        string Region
+    %% Fact Table
+    fact_inventory_daily {
+        DATE txn_date PK
+        VARCHAR(10) store_id PK
+        VARCHAR(10) product_id PK
+        INTEGER region_id FK
+        INTEGER inventory_level
+        INTEGER units_sold
+        INTEGER units_ordered
+        NUMERIC demand_forecast
+        NUMERIC price
+        INTEGER discount_pct
+        NUMERIC competitor_price
+        VARCHAR(20) weather_condition
+        SMALLINT holiday_promotion
     }
-    
-    PRODUCTS ||--o{ INVENTORY_LOG : "records"
-    PRODUCTS {
-        string Product_ID PK
-        string Category
-        float Price
+
+    %% Dimension Tables
+    dim_date {
+        DATE date_key PK
+        SMALLINT day
+        SMALLINT month
+        VARCHAR(10) month_name
+        SMALLINT quarter
+        SMALLINT year
+        SMALLINT day_of_week
+        VARCHAR(10) day_name
+        BOOLEAN is_weekend
+        VARCHAR(20) season
+        SMALLINT week_of_year
     }
-    
-    INVENTORY_LOG {
-        string Date
-        string Store_ID FK
-        string Product_ID FK
-        int Inventory_Level
-        int Units_Sold
-        int Units_Ordered
-        float Demand_Forecast
-        float Discount
-        int Holiday_Promotion
-        float Competitor_Pricing
-        string Seasonality
+
+    dim_store {
+        VARCHAR(10) store_id PK
     }
-```
+
+    dim_product {
+        VARCHAR(10) product_id PK
+        VARCHAR(50) category
+    }
+
+    dim_region {
+        SERIAL region_id PK
+        VARCHAR(20) region_name
+    }
+
+    %% Relationships
+    dim_date ||--o{ fact_inventory_daily : "filters"
+    dim_store ||--o{ fact_inventory_daily : "filters"
+    dim_product ||--o{ fact_inventory_daily : "filters"
+    dim_region ||--o{ fact_inventory_daily : "filters"
+
+
+
 ## KPI Dashboards & Visualizations
 
 ### 1. The Cost of Stockouts & ABC Classification
