@@ -66,7 +66,7 @@ erDiagram
     dim_product ||--o{ fact_inventory_daily : "filters"
     dim_region ||--o{ fact_inventory_daily : "filters"
 
-
+```
 
 ## KPI Dashboards & Visualizations
 
