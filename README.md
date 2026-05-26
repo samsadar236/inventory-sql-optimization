@@ -40,7 +40,7 @@ erDiagram
         float Competitor_Pricing
         string Seasonality
     }
-
+```
 ## 📊 KPI Dashboards & Visualizations
 
 ### 1. The Cost of Stockouts & ABC Classification
@@ -74,4 +74,4 @@ Visualized the extremes of inventory movement to identify our highest and lowest
 * **Automate Reorder Triggers:** Bridge the negative supply variance by aligning procurement orders directly with the 7-day trailing velocity, ensuring units ordered meet or exceed units sold. Implement automated alerts tied to our SQL `Est_Reorder_Point` logic.
 * **Capital Reallocation (ABC Strategy):** Aggressively reallocate safety stock capital from C-Class items (bottom 50% revenue drivers) to ensure A-Class items (top 20%) never hit the 1.5-day critical supply threshold.
 * **Protect Seasonal Peaks:** Winter periods with active promotions yield the highest average sales velocity. Baseline safety stock must be front-loaded ahead of Q4 to prevent stockouts from capping revenue.
-```
+
