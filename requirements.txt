@@ -1,0 +1,6 @@
+duckdb>=1.0
+pandas>=2.0
+matplotlib>=3.7
+reportlab>=4.0
+pdf2image>=1.16
+pypdf>=4.0
