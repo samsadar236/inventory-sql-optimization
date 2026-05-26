@@ -45,7 +45,8 @@ erDiagram
 
 ### 1. The Cost of Stockouts & ABC Classification
 Quantified the financial impact of current inefficiencies and implemented a Pareto-based classification model using SQL `PERCENT_RANK()` to group SKUs by revenue impact.
-![ABC Analysis and Lost Revenue](image1.png)
+<img width="1789" height="690" alt="image1" src="https://github.com/user-attachments/assets/76f0d12d-3ee9-4c8f-a3ba-a645a95c8b7e" />
+
 
 ### 2. Critical Stockout Risk (Days of Supply)
 Calculated the exact days of supply on hand for high-velocity items.
