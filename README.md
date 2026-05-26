@@ -3,15 +3,27 @@
 ## Project Overview
 Urban Retail Co. is a rapidly expanding mid-sized retail chain struggling with reactive inventory management. Frequent stockouts of fast-moving products and overstocking of slow-moving items were locking up working capital and damaging customer experience. 
 
-The objective of this project was to engineer an end-to-end SQL data pipeline to transform a raw, flat dataset of over 100,000 transactions into a normalized relational database, and develop actionable KPI dashboards to optimize reorder thresholds and supply chain visibility.
+The objective of this project was to engineer an end-to-end data pipeline, moving from initial local prototyping to a production-ready data warehouse that powers automated KPI dashboards.
 
-**Tech Stack:** Python (Pandas, Matplotlib, Seaborn), SQLite, Advanced SQL (CTEs, Window Functions, Data Aggregation)
+**Tech Stack:** Python (Pandas, Matplotlib), SQLite (Prototyping), PostgreSQL (Production Backend), Data Architecture (Star Schema)
 
 ---
 
-## Database Architecture (Star Schema)
-The raw dataset was ingested, cleaned, and modeled into a highly efficient Star Schema designed for analytical processing (OLAP). This structure centers around a daily inventory fact table connected to multiple dimension tables, optimizing the performance of complex aggregations and BI dashboard queries. Indexes were applied to all primary and foreign keys.
+##  Phase 1: Local Prototyping & EDA (Python + SQLite)
+Before building the production backend, I utilized SQLite and Python within a Jupyter Notebook for rapid exploratory data analysis (EDA). This lightweight sandbox allowed me to query the 100,000+ row dataset and quickly prove the core business hypothesis.
 
+**Key Prototyping Findings:**
+* **The 1.5-Day Survival Buffer:** Uncovered that high-velocity categories (Electronics, Toys) were operating on dangerously thin margins, averaging only 1.5 to 1.6 days of supply on hand.
+* **The "Fake" Forecast Error:** Correlated critical stockouts with seasonal demand, proving the underlying forecasting model was actually accurate, but sales were being artificially suppressed by hard inventory limits.
+
+ **[View the Phase 1 Python Notebook and EDA Visualizations here](/exploratory_data_analysis/inventoryanalysis.ipynb)**
+
+---
+
+## Phase 2: Production Architecture & BI (PostgreSQL)
+Once the business logic was proven locally, the pipeline was migrated to a PostgreSQL 14+ backend to support at-scale analytical processing (OLAP). The data was modeled into a highly efficient **Star Schema**, leveraging advanced window functions and aggregations to automate dynamic safety stock calculations.
+
+### Database Architecture
 ```mermaid
 erDiagram
     %% Fact Table
@@ -65,44 +77,16 @@ erDiagram
     dim_store ||--o{ fact_inventory_daily : "filters"
     dim_product ||--o{ fact_inventory_daily : "filters"
     dim_region ||--o{ fact_inventory_daily : "filters"
-
 ```
+## Executive KPI Dashboard
+The PostgreSQL backend directly feeds this automated reporting dashboard, providing a unified view of supply chain health and actionable reorder triggers:
 
-## KPI Dashboards & Visualizations
+<img width="2539" height="1963" alt="dashboard" src="https://github.com/user-attachments/assets/da407dcf-0184-4585-82c8-1ca39ee6077a" />
 
-### 1. The Cost of Stockouts & ABC Classification
-Quantified the financial impact of current inefficiencies and implemented a Pareto-based classification model using SQL `PERCENT_RANK()` to group SKUs by revenue impact.
-<img width="1789" height="690" alt="image1" src="https://github.com/user-attachments/assets/76f0d12d-3ee9-4c8f-a3ba-a645a95c8b7e" />
-
-
-### 2. Critical Stockout Risk (Days of Supply)
-Calculated the exact days of supply on hand for high-velocity items.
-<img width="1189" height="590" alt="image2" src="https://github.com/user-attachments/assets/78c5c5c5-7395-47e1-9adc-c9dab5a661e5" />
-
-
-### 3. Supplier Performance & Supply Gap
-Visualized the procurement inefficiency by mapping the net variance between units ordered and units sold.
-<img width="1189" height="590" alt="image3" src="https://github.com/user-attachments/assets/198e5be1-ed48-4729-84b1-29ef8cdef5e5" />
-
-### 4. Demand Fulfillment & Seasonality
-Mapped actual sales against forecasted demand to identify stockout-driven revenue caps.
-<img width="1189" height="590" alt="image4" src="https://github.com/user-attachments/assets/477bba9d-9b58-4a9d-94a9-73f85b5e1d49" />
-
-
-### 5. Product Velocity (Fast vs. Slow Movers)
-Visualized the extremes of inventory movement to identify our highest and lowest performing SKUs, highlighting where capital is moving and where it is trapped.
-<img width="1187" height="590" alt="image5" src="https://github.com/user-attachments/assets/5231fff2-0552-41f2-976d-2ef1cc29e5d4" />
-
-
----
-
-## Key Analytical Insights
-1. **Critical Supply Deficits:** Analysis of inventory ratios reveals that high-velocity categories (Electronics, Toys) are operating on dangerously thin margins, averaging only **1.5 to 1.6 days of supply** on hand.
-2. **Purchasing Misalignment:** Supply gap analysis highlights a systemic issue where units sold consistently outpace units ordered (yielding negative supply variances). The supply chain is actively draining safety stock rather than replenishing at the rate of consumer demand.
-3. **Stockout-Driven Forecast Variances:** Seasonal data indicates a persistent negative forecast error. Correlated with the critically low days of supply, this indicates that the forecasting model is likely accurate, but actualized sales are being artificially suppressed by inventory stockouts.
 
 ## Strategic Recommendations
-* **Automate Reorder Triggers:** Bridge the negative supply variance by aligning procurement orders directly with the 7-day trailing velocity, ensuring units ordered meet or exceed units sold. Implement automated alerts tied to our SQL `Est_Reorder_Point` logic.
-* **Capital Reallocation (ABC Strategy):** Aggressively reallocate safety stock capital from C-Class items (bottom 50% revenue drivers) to ensure A-Class items (top 20%) never hit the 1.5-day critical supply threshold.
-* **Protect Seasonal Peaks:** Winter periods with active promotions yield the highest average sales velocity. Baseline safety stock must be front-loaded ahead of Q4 to prevent stockouts from capping revenue.
+Automate Reorder Triggers: Bridge the negative supply variance by aligning procurement orders directly with the 7-day trailing velocity, ensuring units ordered meet or exceed units sold. Implement automated alerts tied to our SQL Est_Reorder_Point logic.
 
+Capital Reallocation (ABC Strategy): Aggressively reallocate safety stock capital from C-Class items (bottom 50% revenue drivers) to ensure A-Class items (top 20%) never hit the 1.5-day critical supply threshold.
+
+Protect Seasonal Peaks: Winter periods with active promotions yield the highest average sales velocity. Baseline safety stock must be front-loaded ahead of Q4 to prevent stockouts from capping revenue.
