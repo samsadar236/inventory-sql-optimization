@@ -50,19 +50,22 @@ Quantified the financial impact of current inefficiencies and implemented a Pare
 
 ### 2. Critical Stockout Risk (Days of Supply)
 Calculated the exact days of supply on hand for high-velocity items.
-![Days of Supply](image2.png)
+<img width="1189" height="590" alt="image2" src="https://github.com/user-attachments/assets/78c5c5c5-7395-47e1-9adc-c9dab5a661e5" />
+
 
 ### 3. Supplier Performance & Supply Gap
 Visualized the procurement inefficiency by mapping the net variance between units ordered and units sold.
-![Supply Gap Variance](image3.png)
+<img width="1189" height="590" alt="image3" src="https://github.com/user-attachments/assets/198e5be1-ed48-4729-84b1-29ef8cdef5e5" />
 
 ### 4. Demand Fulfillment & Seasonality
 Mapped actual sales against forecasted demand to identify stockout-driven revenue caps.
-![Seasonality Trends](image4.png)
+<img width="1189" height="590" alt="image4" src="https://github.com/user-attachments/assets/477bba9d-9b58-4a9d-94a9-73f85b5e1d49" />
+
 
 ### 5. Product Velocity (Fast vs. Slow Movers)
 Visualized the extremes of inventory movement to identify our highest and lowest performing SKUs, highlighting where capital is moving and where it is trapped.
-![Inventory Velocity](image5.png)
+<img width="1187" height="590" alt="image5" src="https://github.com/user-attachments/assets/5231fff2-0552-41f2-976d-2ef1cc29e5d4" />
+
 
 ---
 
