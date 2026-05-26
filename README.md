@@ -41,9 +41,9 @@ erDiagram
         string Seasonality
     }
 ```
-## 📊 KPI Dashboards & Visualizations
+## KPI Dashboards & Visualizations
 
-### 1. The Cost of Stockouts & ABC Classification
+#### 1. The Cost of Stockouts & ABC Classification
 Quantified the financial impact of current inefficiencies and implemented a Pareto-based classification model using SQL `PERCENT_RANK()` to group SKUs by revenue impact.
 <img width="1789" height="690" alt="image1" src="https://github.com/user-attachments/assets/76f0d12d-3ee9-4c8f-a3ba-a645a95c8b7e" />
 
