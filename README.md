@@ -16,7 +16,7 @@ Before building the production backend, I utilized SQLite and Python within a Ju
 * **The 1.5-Day Survival Buffer:** Uncovered that high-velocity categories (Electronics, Toys) were operating on dangerously thin margins, averaging only 1.5 to 1.6 days of supply on hand.
 * **The "Fake" Forecast Error:** Correlated critical stockouts with seasonal demand, proving the underlying forecasting model was actually accurate, but sales were being artificially suppressed by hard inventory limits.
 
- **[View the Phase 1 Python Notebook and EDA Visualizations here](/exploratory_data_analysis/inventoryanalysis.ipynb)**
+ **[View the Phase 1 Python Notebook and EDA Visualizations here](https://github.com/samsadar236/inventory-sql-optimization/tree/main/exploratory_data_analysis)**
 
 ---
 
